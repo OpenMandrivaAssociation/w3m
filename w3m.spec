@@ -134,7 +134,6 @@ Icon=%{name}
 Terminal=true
 Type=Application
 Categories=ConsoleOnly;WebBrowser;X-MandrivaLinux-Internet-WebBrowsers;
-Encoding=UTF-8
 EOF
 
 %find_lang %{name}
