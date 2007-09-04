@@ -6,9 +6,9 @@
 Summary:        %{Summary}
 Name:           w3m
 Version:        0.5.2
-Release:        %mkrel 1
+Release:        %mkrel 2
 Group:          Networking/WWW
-License:        MIT-style
+License:        MIT-like
 URL:            http://w3m.sourceforge.net/
 Source0:        http://prdownloads.sourceforge.net/w3m/%{name}-%{version}.tar.gz
 Source1:        http://www.hpl.hp.com/personal/Hans_Boehm/gc/gc_source/%{gcversion}.tar.gz
@@ -37,7 +37,7 @@ W3m is a text-based web browser as well as a pager like `more' or
 `less'. With w3m you can browse web pages through a terminal emulator
 window (xterm, rxvt or something like that). Moreover, w3m can be used
 as a text formatting tool which typesets HTML into plain text. w3m also
-provides w3mman which is a great manpagebrowser.
+provides w3mman which is a great manpage browser.
 
 %prep
 %setup -q
@@ -111,31 +111,6 @@ install -m0644 w3mconfig %{buildroot}%{_sysconfdir}/w3m/config
 
 rm -rf %{buildroot}/%{_mandir}/ja*
 
-# menu entry
-mkdir -p %{buildroot}%{_menudir}
-cat > %{buildroot}%{_menudir}/%{name} << EOF
-?package(%{name}): \
-        command="%{name} http://www.mandriva.com" \
-        title="W3m" \
-        longtitle="%{Summary}" \
-        section="Internet/Web Browsers" \
-        icon="networking_www_section.png" \
-        needs="text" \
-        xdg="true"
-EOF
-
-mkdir -p %{buildroot}%{_datadir}/applications
-cat > %{buildroot}%{_datadir}/applications/mandriva-%{name}.desktop << EOF
-[Desktop Entry]
-Name=W3m
-Comment=%{Summary}
-Exec=%{name} http://www.mandriva.com
-Icon=%{name}
-Terminal=true
-Type=Application
-Categories=ConsoleOnly;WebBrowser;X-MandrivaLinux-Internet-WebBrowsers;
-EOF
-
 %find_lang %{name}
 
 %post
@@ -154,7 +129,5 @@ rm -rf %{buildroot}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/w3m/config
 %attr(0755,root,root) %{_bindir}/*
 %{_libdir}/%{name}
-%{_menudir}/%{name}
-%{_datadir}/applications/mandriva-%{name}.desktop
 %{_datadir}/%{name}
 %{_mandir}/man1/*
