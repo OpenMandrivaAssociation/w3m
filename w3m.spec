@@ -28,7 +28,6 @@ BuildRequires:  openssl-devel
 BuildRequires:  pkgconfig
 BuildRequires:  termcap-devel
 BuildRequires:  ungif-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %define _requires_exceptions        perl(w3mhelp-.*)
 
