@@ -26,6 +26,7 @@ Patch4:		w3m-0.5.2-literal.patch
 Provides:       webclient
 #BuildRequires: gc-devel
 BuildRequires:  gpm-devel
+BuildRequires:	gtk+2-devel
 BuildRequires:	libgdk_pixbuf2.0-devel
 BuildRequires:  imlib-devel >= 1.9.8
 BuildRequires:  ncurses-devel
