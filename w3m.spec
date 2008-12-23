@@ -18,10 +18,15 @@ Patch0:         w3m-0.4.1-helpcharset.patch
 # XXX: acinclude.m4 is completely out of sync with aclocal.m4.
 Patch1:         w3m-0.5.2-static-libgc.patch
 Patch2:         w3m-0.5.1-gcc4.patch
+# Hack up the syserror test. Life's too short to figure out why the
+# hell it doesn't work - AdamW 2008/12
+Patch3:		w3m-0.5.2-syserror.patch
+# String literal fix - AdamW 2008/12
+Patch4:		w3m-0.5.2-literal.patch
 Provides:       webclient
 #BuildRequires: gc-devel
-BuildRequires:  gdk-pixbuf-devel
 BuildRequires:  gpm-devel
+BuildRequires:	libgdk_pixbuf2.0-devel
 BuildRequires:  imlib-devel >= 1.9.8
 BuildRequires:  ncurses-devel
 BuildRequires:  openssl-devel
@@ -44,6 +49,8 @@ provides w3mman which is a great manpage browser.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1 -b .syserror
+%patch4 -p1 -b .literal
 
 rm -rf gc
 tar xf %{SOURCE1}
