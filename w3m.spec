@@ -6,7 +6,7 @@
 Summary:        %{Summary}
 Name:           w3m
 Version:        0.5.2
-Release:        %mkrel 6
+Release:        %mkrel 7
 Group:          Networking/WWW
 License:        MIT-like
 URL:            http://w3m.sourceforge.net/
