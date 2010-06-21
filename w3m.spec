@@ -104,7 +104,7 @@ ln -s ../gc.a lib/libgc.a
 
 # kanji-symbols breaks menuboxes
 # japanese-disables options and rightclick menu
-%{make}
+make
 
 %install
 rm -rf %{buildroot}
