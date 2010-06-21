@@ -6,7 +6,7 @@
 Summary:        %{Summary}
 Name:           w3m
 Version:        0.5.2
-Release:        %mkrel 8
+Release:        %mkrel 9
 Group:          Networking/WWW
 License:        MIT-like
 URL:            http://w3m.sourceforge.net/
@@ -23,6 +23,7 @@ Patch2:         w3m-0.5.1-gcc4.patch
 Patch3:		w3m-0.5.2-syserror.patch
 # String literal fix - AdamW 2008/12
 Patch4:		w3m-0.5.2-literal.patch
+Patch5:		w3m-CVE-2010-2074.patch
 Provides:       webclient
 #BuildRequires: gc-devel
 BuildRequires:  gpm-devel
@@ -52,6 +53,7 @@ provides w3mman which is a great manpage browser.
 %patch2 -p1
 %patch3 -p1 -b .syserror
 %patch4 -p1 -b .literal
+%patch5 -p0 -b .CVE-2010-2074
 
 rm -rf gc
 tar xf %{SOURCE1}
