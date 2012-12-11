@@ -1,0 +1,11 @@
+--- w3m-0.5.3/Makefile.in.opts	2011-01-04 12:22:18.000000000 +0300
++++ w3m-0.5.3/Makefile.in	2012-11-16 21:46:32.852356844 +0400
+@@ -206,7 +206,7 @@ w3mimgdisplay.o: w3mimgdisplay.c w3mimg/
+ 
+ w3mimg/w3mimg.a: w3mimg
+ w3mimg:
+-	(cd w3mimg && $(MAKE) CC="$(CC0)" OPTS="$(OPTS)")
++	(cd w3mimg && $(MAKE) CC="$(CC0)" OPTS="$(OPTS) $(shell pkg-config --cflags glib-2.0 gtk+-2.0 gdk-pixbuf-xlib-2.0)")
+ 
+ po:
+ 	(cd $@ && $(MAKE))

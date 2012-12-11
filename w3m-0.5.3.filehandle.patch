@@ -1,0 +1,79 @@
+--- w3m-0.5.3/istream.c.filehandle	2012-11-16 20:07:23.046335417 +0400
++++ w3m-0.5.3/istream.c	2012-11-16 20:10:20.926336523 +0400
+@@ -22,8 +22,8 @@
+ static void basic_close(int *handle);
+ static int basic_read(int *handle, char *buf, int len);
+ 
+-static void file_close(struct file_handle *handle);
+-static int file_read(struct file_handle *handle, char *buf, int len);
++static void file_close(struct rcs_file_handle *handle);
++static int file_read(struct rcs_file_handle *handle, char *buf, int len);
+ 
+ static int str_read(Str handle, char *buf, int len);
+ 
+@@ -114,7 +114,7 @@ newFileStream(FILE * f, void (*closep) (
+     stream = New(union input_stream);
+     init_base_stream(&stream->base, STREAM_BUF_SIZE);
+     stream->file.type = IST_FILE;
+-    stream->file.handle = New(struct file_handle);
++    stream->file.handle = New(struct rcs_file_handle);
+     stream->file.handle->f = f;
+     if (closep)
+ 	stream->file.handle->close = closep;
+@@ -658,13 +658,13 @@ basic_read(int *handle, char *buf, int l
+ }
+ 
+ static void
+-file_close(struct file_handle *handle)
++file_close(struct rcs_file_handle *handle)
+ {
+     handle->close(handle->f);
+ }
+ 
+ static int
+-file_read(struct file_handle *handle, char *buf, int len)
++file_read(struct rcs_file_handle *handle, char *buf, int len)
+ {
+     return fread(buf, 1, len, handle->f);
+ }
+--- w3m-0.5.3/istream.h.filehandle	2003-10-20 20:41:56.000000000 +0400
++++ w3m-0.5.3/istream.h	2012-11-16 20:07:23.055336114 +0400
+@@ -20,7 +20,7 @@ struct stream_buffer {
+ 
+ typedef struct stream_buffer *StreamBuffer;
+ 
+-struct file_handle {
++struct rcs_file_handle {
+     FILE *f;
+     void (*close) ();
+ };
+@@ -51,9 +51,9 @@ struct base_stream {
+     void (*close) ();
+ };
+ 
+-struct file_stream {
++struct rcs_file_stream {
+     struct stream_buffer stream;
+-    struct file_handle *handle;
++    struct rcs_file_handle *handle;
+     char type;
+     char iseos;
+     int (*read) ();
+@@ -91,7 +91,7 @@ struct encoded_stream {
+ 
+ union input_stream {
+     struct base_stream base;
+-    struct file_stream file;
++    struct rcs_file_stream file;
+     struct str_stream str;
+ #ifdef USE_SSL
+     struct ssl_stream ssl;
+@@ -100,7 +100,7 @@ union input_stream {
+ };
+ 
+ typedef struct base_stream *BaseStream;
+-typedef struct file_stream *FileStream;
++typedef struct rcs_file_stream *FileStream;
+ typedef struct str_stream *StrStream;
+ #ifdef USE_SSL
+ typedef struct ssl_stream *SSLStream;

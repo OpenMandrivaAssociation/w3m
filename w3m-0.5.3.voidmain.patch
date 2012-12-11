@@ -1,0 +1,12 @@
+--- w3m-0.5.3/main.c.voidmain	2011-01-04 12:42:19.000000000 +0300
++++ w3m-0.5.3/main.c	2012-11-16 19:30:26.569335491 +0400
+@@ -833,7 +833,8 @@ main(int argc, char **argv, char **envp)
+     mySignal(SIGPIPE, SigPipe);
+ #endif
+ 
+-    orig_GC_warn_proc = GC_set_warn_proc(wrap_GC_warn_proc);
++    orig_GC_warn_proc = GC_get_warn_proc();
++    GC_set_warn_proc(wrap_GC_warn_proc);
+     err_msg = Strnew();
+     if (load_argc == 0) {
+ 	/* no URL specified */

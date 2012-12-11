@@ -1,4 +1,2 @@
 sources:
-  "gc6.3.tar.gz:"	58042fd0dbfc96423cf0bb1fe6ea0791e9cb79cf
-  "w3m-0.5.2.tar.gz:"	484522547ae6dbb342d3858a2a53a65451e273f9
-  "w3mconfig:"	39016a56790d93bd13fbef9db33c344fd6891b7d
+  w3m-0.5.3.tar.gz: 444b6c8cf7094ee95f8e9de96b37f814b9d83237
