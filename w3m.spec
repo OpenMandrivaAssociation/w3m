@@ -27,7 +27,7 @@ BuildRequires:  imlib-devel >= 1.9.8
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig
-BuildRequires:  termcap-devel
+#BuildRequires:  termcap-devel
 BuildRequires:  ungif-devel
 buildrequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 buildrequires:	gc-devel
