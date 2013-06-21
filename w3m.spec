@@ -22,7 +22,6 @@ patch8:		w3m-0.5.3.opts.patch
 Provides:       webclient
 BuildRequires:  gpm-devel
 BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:	libgdk_pixbuf2.0-devel
 BuildRequires:  imlib-devel >= 1.9.8
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(openssl)
