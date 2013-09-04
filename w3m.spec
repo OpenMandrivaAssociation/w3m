@@ -1,12 +1,8 @@
 # TODO add option to remove dependencies
-
-%define gcversion gc6.3
-%define Summary   Pager that can also be used as textbased webbrowser
-
-Summary:        %{Summary}
+Summary:        Pager that can also be used as textbased webbrowser
 Name:           w3m
 Version:        0.5.3
-Release:        1
+Release:        2
 Group:          Networking/WWW
 License:        MIT
 URL:            http://w3m.sourceforge.net/
@@ -22,11 +18,9 @@ patch8:		w3m-0.5.3.opts.patch
 Provides:       webclient
 BuildRequires:  gpm-devel
 BuildRequires:	pkgconfig(gtk+-2.0)
-BuildRequires:  imlib-devel >= 1.9.8
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig
-#BuildRequires:  termcap-devel
 BuildRequires:  ungif-devel
 buildrequires:	pkgconfig(gdk-pixbuf-xlib-2.0)
 buildrequires:	gc-devel
