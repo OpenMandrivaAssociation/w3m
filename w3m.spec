@@ -6,7 +6,7 @@
 Summary:        %{Summary}
 Name:           w3m
 Version:        0.5.3
-Release:        1
+Release:        2
 Group:          Networking/WWW
 License:        MIT
 URL:            http://w3m.sourceforge.net/
@@ -16,9 +16,34 @@ Patch0:         w3m-0.4.1-helpcharset.patch
 Patch2:         w3m-0.5.1-gcc4.patch
 # String literal fix - AdamW 2008/12
 Patch4:		w3m-0.5.2-literal.patch
-patch6:		w3m-0.5.3.voidmain.patch
-patch7:		w3m-0.5.3.filehandle.patch
-patch8:		w3m-0.5.3.opts.patch
+Patch6:		w3m-0.5.3.voidmain.patch
+Patch7:		w3m-0.5.3.filehandle.patch
+Patch8:		w3m-0.5.3.opts.patch
+
+# w3mimgdisplay need to be linked with -lX11 to build against gcc 4.5
+# https://sourceforge.net/tracker/?func=detail&aid=3126430&group_id=39518&atid=425441
+Patch101:	%{name}-rh566101_Fix-DSO-X11.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=604864
+# verify SSL certificates by default. SSL support really is pointless
+# without doing that. Also disable use of SSLv2 by default as it's 
+# insecure, deprecated, dead since last century.
+# https://sourceforge.net/tracker/?func=detail&aid=3595801&group_id=39518&atid=425441
+Patch102:	%{name}-0.5.2-ssl_verify_server_on.patch
+
+# Resolves a bug of when given following command w3m crashes
+# w3m https://www.example.coma
+# but following command works fine by giving can't load error
+# w3m http://www.example.coma
+# https://sourceforge.net/tracker/?func=detail&aid=3595167&group_id=39518&atid=425441
+Patch104:	%{name}-rh707994-fix-https-segfault.patch
+
+#https://sourceforge.net/tracker/?group_id=39518&atid=425441
+Patch105:	%{name}-0.5.3-parallel-make.patch
+
+#https://bugzilla.redhat.com/show_bug.cgi?id=1038009
+Patch107:	%{name}-0.5.3-FTBFS-sys-errlist.patch
+
 Provides:       webclient
 BuildRequires:  gpm-devel
 BuildRequires:	pkgconfig(gtk+-2.0)
@@ -47,6 +72,12 @@ provides w3mman which is a great manpage browser.
 %patch7 -p1 -b .filehandle
 %patch8 -p1 -b .opts
 
+%patch101 -p0
+%patch102 -p1
+%patch104 -p0
+%patch105 -p1
+%patch107 -p1
+
 #rm -rf gc
 
 cp -a %{SOURCE2} w3mconfig
@@ -71,7 +102,7 @@ sed -i s/showaudio/mplayer/ config.h.in
                 --enable-gopher \
                 --enable-help-cgi \
                 --enable-history \
-                --enable-image \
+                --enable-image=x11,fb \
                 --enable-ipv6 \
                 --disable-japanese \
                 --enable-keymap=w3m \
@@ -84,31 +115,26 @@ sed -i s/showaudio/mplayer/ config.h.in
                 --enable-m17n \
                 --enable-unicode \
                 --with-charset=UTF-8 \
-                --with-gc=`pwd`/gc \
-								LIBS="-lX11"
+                --with-gc=`pwd`/gc
 
 echo '#define HAVE_SYS_ERRLIST' >> config.h
 
-make
+%make
 
 %install
-install -d %{buildroot}/{%{_bindir},{%{_datadir},%{_libdir}}/%{name},%{_mandir}/{,ja_JP.ujis}/man1}
+%makeinstall_std
 
-%{makeinstall_std}
+install -m644 doc-jp/w3m.1 -D %{buildroot}/%{_mandir}/ja_JP.ujis/man1/w3m.1
+install -m644 doc/w3m.1 -D %{buildroot}/%{_mandir}/man1/w3m.1
 
-install -m0644 doc-jp/w3m.1 %{buildroot}/%{_mandir}/ja_JP.ujis/man1
-install -m0644 doc/w3m.1 %{buildroot}/%{_mandir}/man1
+install -m644 w3mconfig -D %{buildroot}%{_sysconfdir}/w3m/config
 
-install -d %{buildroot}%{_sysconfdir}/w3m
-install -m0644 w3mconfig %{buildroot}%{_sysconfdir}/w3m/config
-
-rm -rf %{buildroot}/%{_mandir}/ja*
-
-%find_lang %{name}
+%find_lang %{name} --with-man
 
 %files -f %{name}.lang
 %defattr(-,root,root)
-%doc README doc doc-jp w3mhelp-lynx_*
+%doc README doc w3mhelp-lynx_*
+%lang(ja) %doc doc-jp 
 %dir %{_sysconfdir}/w3m
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/w3m/config
 %attr(0755,root,root) %{_bindir}/*
