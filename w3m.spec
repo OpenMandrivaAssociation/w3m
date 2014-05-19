@@ -138,7 +138,6 @@ install -m644 w3mconfig -D %{buildroot}%{_sysconfdir}/w3m/config
 %dir %{_sysconfdir}/w3m
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/w3m/config
 %attr(0755,root,root) %{_bindir}/*
-%{_libdir}/%{name}
 %{_libexecdir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man1/*
