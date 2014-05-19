@@ -115,11 +115,11 @@ for file in scripts/w3mhelp-funcdesc.ja.pl.in; do
     mv $file.new $file
 done
 
-%build
 rm -rf doc{,-jp}/CVS
 sed -i s/showaudio/mplayer/ config.h.in
 
-%{configure2_5x} \
+%build
+%configure2_5x \
                 --with-browser=%{_bindir}/www-browser \
                 --with-editor=%{_bindir}/vi \
                 --with-mailer=/bin/mail \
