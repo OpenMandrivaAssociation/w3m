@@ -132,7 +132,6 @@ install -m644 w3mconfig -D %{buildroot}%{_sysconfdir}/w3m/config
 %find_lang %{name} --with-man
 
 %files -f %{name}.lang
-%defattr(-,root,root)
 %doc README doc w3mhelp-lynx_*
 %lang(ja) %doc doc-jp 
 %dir %{_sysconfdir}/w3m
