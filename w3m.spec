@@ -82,6 +82,39 @@ provides w3mman which is a great manpage browser.
 
 cp -a %{SOURCE2} w3mconfig
 
+pushd doc-jp
+for f in * ; do
+   case $f in
+      README.pre_form | README.tab )
+         CHARSET=ISO-2022-JP
+         ;;
+      keymap.* )
+         CHARSET=UTF-8
+         ;;
+      * )
+         CHARSET=EUC-JP
+         ;;
+    esac
+    iconv -f $CHARSET -t UTF-8 $f > $f.tmp && \
+      ( touch -r $f $f.tmp ; mv $f.tmp $f ) || rm -f $f.tmp
+done
+popd
+
+pushd doc
+# Convert to utf-8
+for file in README.m17n README.cookie; do
+    iconv -f ISO-8859-1 -t UTF-8 -o $file.new $file && \
+    touch -r $file $file.new && \
+    mv $file.new $file
+done
+popd
+
+for file in scripts/w3mhelp-funcdesc.ja.pl.in; do
+    iconv -f EUC-JP -t UTF-8 -o $file.new $file && \
+    touch -r $file $file.new && \
+    mv $file.new $file
+done
+
 %build
 rm -rf doc{,-jp}/CVS
 sed -i s/showaudio/mplayer/ config.h.in
