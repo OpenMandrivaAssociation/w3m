@@ -9,7 +9,7 @@ Version:        0.5.3
 Release:        3
 Group:          Networking/WWW
 License:        MIT
-URL:            http://w3m.sourceforge.net/
+URL:            https://w3m.sourceforge.net/
 Source0:        http://prdownloads.sourceforge.net/w3m/%{name}-%{version}.tar.gz
 Source2:        w3mconfig
 Patch0:         w3m-0.4.1-helpcharset.patch
