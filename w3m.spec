@@ -45,6 +45,11 @@ Patch105:	%{name}-0.5.3-parallel-make.patch
 Patch107:	%{name}-0.5.3-FTBFS-sys-errlist.patch
 
 Provides:       webclient
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:  gpm-devel
 BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:  imlib-devel >= 1.9.8
